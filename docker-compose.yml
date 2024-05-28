@@ -12,6 +12,7 @@ services:
       - './:/app'
     environment:
       MONGODB_URI: 'mongodb://db_user:db_user_password@mongodb:27017/auth-app-db'
+      NODE_ENV: development
 
   mongodb:
     image: bitnami/mongodb:6.0
