@@ -13,7 +13,7 @@ services:
     environment:
       MONGODB_URI: 'mongodb://db_user:db_user_password@mongodb:27017/auth-app-db'
       NODE_ENV: development
-      JWT_SECRET: # secure 256 hmac secret
+      JWT_SECRET: 4b5a92187b5c03ade7c1a3f87a53e8327fc39568b74cb7fee85927460ff001bb
 
   mongodb:
     image: bitnami/mongodb:6.0
