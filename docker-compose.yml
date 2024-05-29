@@ -1,0 +1,37 @@
+services:
+  auth-app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    ports:
+      - 3000:3000
+    volumes:
+      - './:/app'
+    environment:
+      MONGODB_URI: 'mongodb://db_user:db_user_password@mongodb:27017/auth-app-db'
+      NODE_ENV: development
+      JWT_SECRET: # secure 256 hmac secret
+
+  mongodb:
+    image: bitnami/mongodb:6.0
+    volumes:
+      - 'mongodb_data:/bitnami/mongodb'
+    environment:
+      MONGODB_ROOT_USER: admin
+      MONGODB_ROOT_PASSWORD: admin_password
+      MONGODB_USERNAME: db_user
+      MONGODB_PASSWORD: db_user_password
+      MONGODB_DATABASE: auth-app-db
+    healthcheck:
+      test: ['CMD', 'mongosh', '--eval', "db.adminCommand('ping')"]
+      interval: 20s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  mongodb_data:
+    driver: local
