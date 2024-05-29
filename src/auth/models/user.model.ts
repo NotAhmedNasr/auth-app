@@ -7,8 +7,10 @@ import * as bcrypt from 'bcrypt';
   timestamps: true,
   toJSON: {
     transform: function (_doc, obj: UserDocument) {
+      obj.id = obj._id;
       delete obj.password;
       delete obj.__v;
+      delete obj._id;
       return obj;
     },
   },
