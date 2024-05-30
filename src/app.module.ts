@@ -5,6 +5,7 @@ import config, { AppConfig } from './config';
 import { AuthModule } from './auth/auth.module';
 import { LoggerModule } from 'nestjs-pino';
 import { stdTimeFunctions } from 'pino';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { stdTimeFunctions } from 'pino';
       inject: [ConfigService],
     }),
     AuthModule,
+    HealthModule,
   ],
 })
 export class AppModule {}
