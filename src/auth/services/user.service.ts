@@ -17,7 +17,7 @@ export class UserService {
   async create(dto: SignUpDto) {
     try {
       const user = await this.userModel.create({
-        email: dto.email,
+        email: dto.email.toLowerCase(),
         name: dto.name,
         password: dto.password,
       });
@@ -31,7 +31,9 @@ export class UserService {
   }
 
   async signIn(dto: SignInDto) {
-    const user = await this.userModel.findOne({ email: dto.email });
+    const user = await this.userModel.findOne({
+      email: dto.email.toLowerCase(),
+    });
     if (!user || !(await user.validatePassword(dto.password))) {
       throw new UnauthorizedException();
     }
